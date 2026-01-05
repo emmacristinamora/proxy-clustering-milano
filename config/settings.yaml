@@ -1,22 +1,22 @@
 # project scope
 project:
-	city_name: "Milan, Italy"
-	country_code: "IT"
+  city_name: "Milan, Italy"
+  country_code: "IT"
 
 # coordinate systems
 crs:
-	metric: "EPSG:32632" # UTM zone 32N (meters, used for measuring distances in Italy)
-	global: "EPSG:4326" # used for H3 indexing and map visualizations
+  metric: "EPSG:32632" # UTM zone 32N (meters, used for measuring distances in Italy)
+  global: "EPSG:4326" # used for H3 indexing and map visualizations
 
 # L0 - grid
 grid:
-	resolution: 10 # H3 resolution approx 66m
-	buffer_dist_m: 5000 # extend 5km the Milan radius
+  resolution: 10 # H3 resolution approx 66m
+  buffer_dist_m: 5000 # extend 5km the Milan radius
 
 # file paths
 paths:
-	raw: "data/raw"
-	processed: "data/processed"
-	viz: "data/viz"
-	maps: "outputs/maps"
+  raw: "data/raw"
+  processed: "data/processed"
+  viz: "data/viz"
+  maps: "outputs/maps"
 
