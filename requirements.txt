@@ -1,0 +1,25 @@
+# core data
+pandas
+numpy
+pyyaml # read the settings.yaml file
+
+# geospatial data
+geopandas # pandas for maps
+shapely # geometry engine (polygons, points)
+osmnx # Open Street Map data
+
+# hexagon grid from Uber
+h3>=4.0.0
+
+# visualisation 
+folium
+matplotlib
+
+# storage (parquet)
+pyarrow
+
+# machine learning
+scikit-learn
+
+# connects conda to vs code notebooks
+ipykernel
