@@ -13,6 +13,24 @@ grid:
   resolution: 10 # H3 resolution approx 66m
   buffer_dist_m: 5000 # extend 5km the Milan radius
 
+# L1 - transport
+transport:
+  deduplication:
+    similarity_threshold: 0.7 # name similarity threshold for deduplication (0-1)
+    metro_dist_m: 150 # distance threshold to consider points as metro duplicates (in meters)
+    train_dist_m: 100 # distance threshold to consider points as train duplicates (in meters)
+    tram_dist_m: 60 # distance threshold to consider points as tram duplicates (in meters)
+  # OSM tags for extraction
+  tags:
+    metro:
+      station: "subway"
+      # railway: "subway"
+    train:
+      railway: "station"
+    tram:
+      railway: "tram_stop"
+      # tram: "yes"
+
 # file paths
 paths:
   raw: "data/raw"

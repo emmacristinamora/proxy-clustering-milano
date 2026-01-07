@@ -44,7 +44,7 @@ def plot_transport(
     for _, row in transport_gdf[transport_gdf['type'] == 'metro'].iterrows():
         folium.CircleMarker(
             location = [row.geometry.y, row.geometry.x],
-            radius = 5, color = 'red', fill = True, fill_opacity = 0.2, weight = 0.5,
+            radius = 5, color = 'red', fill = True, fill_opacity = 0.6, weight = 0.5,
             popup = f"Metro: {row['name']}"
         ).add_to(fg_metro)
    
@@ -55,7 +55,7 @@ def plot_transport(
     for _, row in transport_gdf[transport_gdf['type'] == 'train'].iterrows():
         folium.CircleMarker(
             location = [row.geometry.y, row.geometry.x],
-            radius = 3, color = 'blue', fill = True, fill_opacity = 0.2, weight = 0.5,
+            radius = 5, color = 'blue', fill = True, fill_opacity = 0.6, weight = 0.5,
             popup = f"Train: {row['name']}"
         ).add_to(fg_train)
    
@@ -66,7 +66,7 @@ def plot_transport(
     for _, row in transport_gdf[transport_gdf['type'] == 'tram'].iterrows():
         folium.CircleMarker(
             location = [row.geometry.y, row.geometry.x],
-            radius = 3, color = 'green', fill = True, fill_opacity = 0.2, weight = 0.5,
+            radius = 3, color = 'green', fill = True, fill_opacity = 0.4, weight = 0.5,
             popup = f"Tram: {row['name']}"
         ).add_to(fg_tram)
    

@@ -136,7 +136,9 @@ def fetch_osmnx_points(
         )
 
         # return only points (OSMNX may return polygons for buldings for eg so we compute centroids)
+        points_gdf = points_gdf.to_crs("EPSG:3857")  # project to metric system for accurate centroid calculation
         points_gdf['geometry'] = points_gdf.geometry.centroid
+        points_gdf = points_gdf.to_crs("EPSG:4326")  # back to Lat/Lon
 
         # filter columns to keep only "name" and "geometry"
         if 'name' in points_gdf.columns:
