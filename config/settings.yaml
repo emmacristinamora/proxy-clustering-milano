@@ -31,6 +31,127 @@ transport:
       railway: "tram_stop"
       # tram: "yes"
 
+# L2 - pois
+poi:
+  deduplication:
+    similarity_threshold: 0.7 # name similarity threshold for deduplication (0-1)
+    distance_m: 20 # distance threshold to consider points as duplicates (in meters) between POIs
+  # OSM tags for extraction
+  tags:
+    food_nighlife:
+      amenity:
+        - "retaurant"
+        - "cafe"
+        - "bar"
+        - "pub"
+        - "fast_food"
+        - "ice_cream"
+        - "biergarten"
+        - "nightclub"
+        - "food_court"
+        - "bistro"
+        - "canteen"
+    culture_leisure:
+      amenity:
+        - "theatre"
+        - "cinema"
+        - "arts_centre"
+        - "events_venue"
+        - "community_centre"
+        - "place_of_worship"
+        - "social_centre"
+        - "casino"
+      tourism:
+        - "museum"
+        - "artwork"
+        - "gallery"
+        - "attraction"
+        - "viewpoint"
+        - "theme_park"
+      leisure:
+        - "park"
+        - "garden"
+        - "nature_reserve"
+        - "stadium"
+        - "sports_centre"
+        - "pitch"
+        - "track"
+        - "fitness_centre"
+    public_services:
+      amenity:
+        - "school'
+        - "university"
+        - "college"
+        - "kindergarten"
+        - "childcare"
+        - "library"
+        - "hospital"
+        - "clinic"
+        - "pharmacy"
+        - "doctors"
+        - "dentist"
+        - "veterinary"
+        - "post_office"
+        - "townhall"
+        - "police"
+        - "fire_station"
+        - "court_house"
+    retail_shopping:
+      shop:
+        - "supermarket"
+        - "convenience"
+        - "mall"
+        - "department_store"
+        - "clothes"
+        - "fashion"
+        - "shoes"
+        - "electronics"
+        - "cosmetics"
+        - "jewelry"
+        - "watches"
+        - "tailor"
+        - "antiques"
+        - "art"
+        - "wine"
+        - "variety_store"
+        - "kiosk"
+        - "second_hand"
+        - "betting"
+        - "lottery"
+        - "tabacco"
+        - "pawnbroker"
+        - "bakery"
+        - "butcher"
+        - "greengrocer"
+        - "hairdresser"
+        - "beauty"
+        - "optician"
+        - "florist"
+        - "dry_cleaning"
+    business_economy:
+      amenity:
+        - "conference_centre"
+        - "coworking_space"
+        - "bank"
+        - "bureau_de_change"
+      office:
+        - "company"
+        - "coworking"
+        - "government"
+        - "lawyer"
+        - "insurance"
+        - "real_estate"
+        - "architect"
+        - "accountant"
+        - "it"
+        - "foundation"
+        - "association"
+      tourism:
+        - "hotel"
+        - "hostel"
+        - "motel"
+        - "guest_house"
+
 # file paths
 paths:
   raw: "data/raw"
