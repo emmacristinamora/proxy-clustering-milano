@@ -37,7 +37,7 @@ poi:
     similarity_threshold: 0.7 # name similarity threshold for deduplication (0-1)
     distance_m: 20 # distance threshold to consider points as duplicates (in meters) between POIs
   # OSM tags for extraction
-  tags:
+  categories:
     food_nighlife:
       amenity:
         - "retaurant"
@@ -79,7 +79,7 @@ poi:
         - "fitness_centre"
     public_services:
       amenity:
-        - "school'
+        - "school"
         - "university"
         - "college"
         - "kindergarten"

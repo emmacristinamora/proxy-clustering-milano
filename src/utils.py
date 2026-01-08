@@ -118,7 +118,7 @@ def fetch_osmnx_points(
         boundary (gpd.GeoDataFrame): GeoDataFrame containing the boundary geometry.
         tags (Dict[str, Union[str, List[str]]]): Dictionary of OSM tags to filter points.
     Returns:
-        gpd.GeoDataFrame: A df containing the fetched points within the boundary.
+        gpd.GeoDataFrame: A df containing the fetched points within the boundary (name, geometry, sub_category).
     """
     print(f"-> Fetching OSMNX points with tags {tags}...")
 
@@ -141,18 +141,29 @@ def fetch_osmnx_points(
         points_gdf['geometry'] = points_gdf.geometry.centroid
         points_gdf = points_gdf.to_crs("EPSG:4326")  # back to Lat/Lon
 
-        # filter columns to keep only "name" and "geometry"
-        if 'name' in points_gdf.columns:
-            points_gdf = points_gdf[['name', 'geometry']].dropna(subset=['name'])
-        else:
-            points_gdf = points_gdf[['geometry']]
+        # column to store sub-category types
+        points_gdf['sub_category'] = "unknown"
+        for key in tags.keys():
+            if key in points_gdf.columns:
+                points_gdf['sub_category'] = points_gdf['sub_category'].where(
+                    points_gdf[key].isna(),
+                    points_gdf[key]
+                )
+
+        # filter columns to keep only "name", "geometry", and "sub_category"
+        cols_to_keep = ['name', 'geometry', 'sub_category']
+        points_gdf = points_gdf[cols_to_keep].copy()
+
+        if 'name' not in points_gdf.columns:
             points_gdf['name'] = "Unnamed POI"  # add empty name column if not present
+        else:
+            points_gdf = points_gdf.dropna(subset=['name'])  # drop points without a name
 
         return points_gdf
     
     except Exception as e:
         print(f"!! No data found for {tags}: {e}")
-        return gpd.GeoDataFrame(columns=['name', 'geometry'], geometry='geometry', crs='EPSG:4326')
+        return gpd.GeoDataFrame(columns=['name', 'geometry', 'sub_category'], geometry='geometry', crs='EPSG:4326')
 
 def deduplicate_points(
     points_gdf: gpd.GeoDataFrame,
@@ -205,10 +216,12 @@ def deduplicate_points(
 
             # pick a representative name (first non-empty)
             name = group['name'].mode()[0] if not group['name'].mode().empty else group.iloc[0]['name']
+            sub_category = group['sub_category'].mode()[0] if 'sub_category' in group and not group['sub_category'].mode().empty else "unknown"
 
             cleaned_rows.append({
                 'name': name,
                 'geometry': centroid,
+                'sub_category': sub_category,
                 'node_count': len(group)
             })
             continue
@@ -242,14 +255,19 @@ def deduplicate_points(
             # compute centroid of the subgroup
             geoms = [d['geometry'] for d in current_subgroup]
             names = [d['name'] for d in current_subgroup]
+            sub_categories = [d.get('sub_category', 'unknown') for d in current_subgroup]
+
             centroid = gpd.GeoSeries(geoms).union_all().centroid
 
-            # pick representative name 
+
+            # pick representative name & sub_category (most common)
             best_name = min(names, key=len)
+            best_sub_category = max(set(sub_categories), key=sub_categories.count)
 
             cleaned_rows.append({
                 'name': best_name,
                 'geometry': centroid,
+                'sub_category': best_sub_category,
                 'node_count': len(current_subgroup)
             })
 
