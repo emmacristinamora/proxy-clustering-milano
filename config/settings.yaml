@@ -157,9 +157,9 @@ poi:
 # other data sources
 data_sources:
   inside_airbnb:
-    filename: "data/raw/insideairbnb_milano_sept2025.csv"
+    filename: "insideairbnb_milano_sept2025.csv"
     filters:
-      room_type: "Entire home/apt
+      room_type: "Entire home/apt"
       max_minimum_nights: 28
       min_reviews: 3
       must_have_recent_review: True
